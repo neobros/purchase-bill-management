@@ -1,0 +1,147 @@
+.entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 24px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+
+  &__row {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    &--secondary {
+      align-items: flex-end;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 110px;
+    flex: 1;
+
+    &--grow {
+      flex: 2;
+      min-width: 180px;
+    }
+
+    &--sm {
+      flex: 0.5;
+      min-width: 80px;
+    }
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__input {
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    outline: none;
+    font-size: 13px;
+    color: var(--color-text);
+    padding: 6px 2px;
+    background: transparent;
+    width: 100%;
+
+    &:focus {
+      border-bottom-color: var(--color-primary);
+    }
+
+    &--readonly {
+      color: var(--color-text-muted);
+      background: var(--color-surface-alt);
+      border-bottom-color: transparent;
+      border-radius: var(--radius-sm);
+      padding: 6px 8px;
+    }
+
+    /* hide number input spinners for a cleaner look */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+}
+
+.required {
+  color: var(--color-danger);
+}
+
+.badge {
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+
+.entry-form__submit-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: var(--color-success);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 16px rgba(47, 179, 128, 0.3);
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &--update {
+    background: var(--color-primary);
+    box-shadow: 0 6px 16px rgba(76, 110, 245, 0.3);
+  }
+
+  &__icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+}
+
+.cancel-button {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+  }
+}
