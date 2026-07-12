@@ -1,0 +1,102 @@
+<div class="bill-history">
+  <div class="bill-history__header">
+    <h3 class="bill-history__title">Saved Purchase Bills</h3>
+    <span class="bill-history__loading" *ngIf="loading">
+      <span class="spinner" aria-hidden="true"></span>
+      Loading…
+    </span>
+  </div>
+
+  <div class="bill-history-wrapper">
+    <table class="bill-history-table">
+      <thead>
+        <tr>
+          <th class="expand-col"></th>
+          <th>Bill #</th>
+          <th>Date</th>
+          <th class="align-right">Total Items</th>
+          <th class="align-right">Total Qty</th>
+          <th class="align-right">Gross Total</th>
+          <th class="align-right">Total Cost</th>
+          <th class="action-col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loading && !bills.length">
+          <td class="empty-row" colspan="8">
+            <span class="spinner" aria-hidden="true"></span>
+            Loading purchase bills…
+          </td>
+        </tr>
+        <tr *ngIf="!loading && !bills.length">
+          <td class="empty-row" colspan="8">No purchase bills saved yet.</td>
+        </tr>
+        <ng-container *ngFor="let bill of bills">
+          <tr class="bill-row" (click)="toggleExpand(bill.id)">
+            <td class="expand-col">
+              <span class="chevron" [class.chevron--open]="expandedId() === bill.id">▸</span>
+            </td>
+            <td>#{{ bill.id }}</td>
+            <td>{{ bill.billDate | date: 'mediumDate' }}</td>
+            <td class="align-right">{{ bill.totalItems }}</td>
+            <td class="align-right">{{ bill.totalQty }}</td>
+            <td class="align-right">{{ bill.grossTotal | number: '1.2-2' }}</td>
+            <td class="align-right">{{ bill.totalCost | number: '1.2-2' }}</td>
+            <td class="action-col">
+              <button
+                type="button"
+                class="row-action row-action--edit"
+                aria-label="Edit purchase bill"
+                (click)="$event.stopPropagation(); edit.emit(bill)"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                class="row-action row-action--delete"
+                aria-label="Delete purchase bill"
+                (click)="$event.stopPropagation(); delete.emit(bill.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr class="bill-detail-row" *ngIf="expandedId() === bill.id">
+            <td colspan="8">
+              <table class="bill-detail-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Batch</th>
+                    <th class="align-right">Standard Cost</th>
+                    <th class="align-right">Standard Price</th>
+                    <th class="align-right">Margin</th>
+                    <th class="align-right">Qty</th>
+                    <th class="align-right">Free Qty</th>
+                    <th class="align-right">Discount</th>
+                    <th class="align-right">Total Cost</th>
+                    <th class="align-right">Total Selling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of bill.items">
+                    <td>{{ item.item }}</td>
+                    <td>{{ item.batch }}</td>
+                    <td class="align-right">{{ item.standardCost | number: '1.2-2' }}</td>
+                    <td class="align-right">{{ item.standardPrice | number: '1.2-2' }}</td>
+                    <td class="align-right">{{ item.margin | number: '1.2-2' }}</td>
+                    <td class="align-right">{{ item.qty }}</td>
+                    <td class="align-right">{{ item.freeQty }}</td>
+                    <td class="align-right">{{ item.discount | number: '1.2-2' }}</td>
+                    <td class="align-right">{{ item.totalCost | number: '1.2-2' }}</td>
+                    <td class="align-right">{{ item.totalSelling | number: '1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

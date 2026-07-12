@@ -1,0 +1,44 @@
+<div class="item-table-wrapper">
+  <table class="item-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Batch</th>
+        <th class="align-right">Standard Cost</th>
+        <th class="align-right">Standard Price</th>
+        <th class="align-right">Margin</th>
+        <th class="align-right">Qty</th>
+        <th class="align-right">Free Qty</th>
+        <th class="align-right">Discount</th>
+        <th class="align-right">Total Cost</th>
+        <th class="align-right">Total Selling</th>
+        <th class="action-col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!items.length">
+        <td class="empty-row" colspan="11">No items added yet. Use the form above to add a purchase item.</td>
+      </tr>
+      <tr *ngFor="let row of items">
+        <td>{{ row.item }}</td>
+        <td>{{ row.batch }}</td>
+        <td class="align-right">{{ row.standardCost | number: '1.2-2' }}</td>
+        <td class="align-right">{{ row.standardPrice | number: '1.2-2' }}</td>
+        <td class="align-right">{{ row.margin | number: '1.2-2' }}</td>
+        <td class="align-right">{{ row.qty }}</td>
+        <td class="align-right">{{ row.freeQty }}</td>
+        <td class="align-right">{{ row.discount | number: '1.2-2' }}</td>
+        <td class="align-right">{{ row.totalCost | number: '1.2-2' }}</td>
+        <td class="align-right">{{ row.totalSelling | number: '1.2-2' }}</td>
+        <td class="action-col">
+          <button type="button" class="edit-btn" (click)="edit.emit(row)" aria-label="Edit item">
+            ✎
+          </button>
+          <button type="button" class="remove-btn" (click)="remove.emit(row.id)" aria-label="Remove item">
+            &times;
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,21 @@
+<div class="autocomplete">
+  <input
+    type="text"
+    class="autocomplete__input"
+    [placeholder]="placeholder"
+    [value]="query()"
+    [disabled]="disabled()"
+    (input)="onInput($any($event.target).value)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  />
+  <ul class="autocomplete__list" *ngIf="isOpen() && filteredOptions.length">
+    <li
+      *ngFor="let option of filteredOptions"
+      class="autocomplete__option"
+      (mousedown)="selectOption(option)"
+    >
+      {{ option }}
+    </li>
+  </ul>
+</div>
