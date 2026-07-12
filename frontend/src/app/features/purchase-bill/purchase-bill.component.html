@@ -1,0 +1,121 @@
+<div class="pb-page">
+  <div class="pb-card">
+    <div class="pb-header">
+      <div class="pb-header__top-strip"></div>
+      <div class="pb-header__row">
+        <div class="pb-header__title-group">
+          <span class="pb-header__icon">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" /><path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+          </span>
+          <div>
+            <h2 class="pb-header__title">Purchase Bill</h2>
+            <p class="pb-header__subtitle">Enter Information for the Purchase Bill</p>
+          </div>
+        </div>
+
+        <div class="pb-header__actions">
+          <button
+            type="button"
+            class="icon-btn"
+            aria-label="Refresh"
+            [disabled]="loadingLocations()"
+            [class.icon-btn--spinning]="loadingLocations()"
+            (click)="refreshLocations()"
+          >
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4V9H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M20 20V15H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M5.5 9C6.9 6 9.7 4 13 4C17.4 4 21 7.6 21 12M18.5 15C17.1 18 14.3 20 11 20C6.6 20 3 16.4 3 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+          </button>
+          <button type="button" class="icon-btn" aria-label="New">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+          </button>
+          <button
+            type="button"
+            class="icon-btn icon-btn--success"
+            [attr.aria-label]="editingBillId() ? 'Update' : 'Save'"
+            [disabled]="saving()"
+            (click)="saveBill()"
+          >
+            <span *ngIf="saving()" class="btn-spinner" aria-hidden="true"></span>
+            <svg *ngIf="!saving()" viewBox="0 0 24 24" fill="none"><path d="M5 12.5L9.5 17L19 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+          <button type="button" class="icon-btn icon-btn--danger" aria-label="Close" (click)="logout()">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="pb-tabs">
+        <button
+          *ngFor="let tab of primaryTabs"
+          type="button"
+          class="pb-tabs__item"
+          [class.pb-tabs__item--active]="activePrimaryTab() === tab"
+          (click)="setPrimaryTab(tab)"
+        >
+          {{ tab }}
+        </button>
+      </nav>
+    </div>
+
+    <div class="pb-status pb-status--error" *ngIf="saveError()">{{ saveError() }}</div>
+    <div class="pb-status pb-status--error" *ngIf="deleteError()">{{ deleteError() }}</div>
+    <div class="pb-status pb-status--success" *ngIf="saveSuccess()">{{ saveSuccess() }}</div>
+    <div class="pb-status pb-status--info" *ngIf="editingBillId() as id">
+      Editing Purchase Bill #{{ id }}.
+      <button type="button" class="pb-status__link" (click)="cancelEdit()">Cancel edit</button>
+    </div>
+
+    <div class="pb-body" *ngIf="activePrimaryTab() === 'Details'; else placeholderTab">
+      <nav class="pb-subtabs">
+        <button
+          *ngFor="let tab of detailTabs"
+          type="button"
+          class="pb-subtabs__item"
+          [class.pb-subtabs__item--active]="activeDetailTab() === tab"
+          (click)="setDetailTab(tab)"
+        >
+          {{ tab }}
+        </button>
+      </nav>
+
+      <div class="pb-content" *ngIf="activeDetailTab() === 'Items'; else emptyDetailTab">
+        <div class="pb-content__main">
+          <app-item-entry-form
+            [itemOptions]="itemOptions"
+            [batchOptions]="batchOptions()"
+            [editingItem]="editingItem()"
+            (add)="onAddItem($event)"
+            (cancelEdit)="onCancelItemEdit()"
+          ></app-item-entry-form>
+
+          <app-item-table
+            [items]="items()"
+            (remove)="onRemoveItem($event)"
+            (edit)="onEditItemRow($event)"
+          ></app-item-table>
+
+          <app-bill-history
+            [bills]="bills()"
+            [loading]="loadingBills()"
+            (edit)="onEditBill($event)"
+            (delete)="onDeleteBill($event)"
+          ></app-bill-history>
+        </div>
+
+        <app-summary-panel
+          [itemSummary]="itemSummary()"
+          [financialSummary]="financialSummary()"
+          [taxSummary]="taxSummary()"
+          [netTotal]="netTotal()"
+        ></app-summary-panel>
+      </div>
+
+      <ng-template #emptyDetailTab>
+        <div class="pb-placeholder">{{ activeDetailTab() }} tab content coming soon.</div>
+      </ng-template>
+    </div>
+
+    <ng-template #placeholderTab>
+      <div class="pb-placeholder">{{ activePrimaryTab() }} tab content coming soon.</div>
+    </ng-template>
+  </div>
+</div>

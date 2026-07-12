@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash -c ' *)",
+      "Bash(rm -rf frontend/node_modules)",
+      "Bash(rm -rf frontend-tmp/node_modules)",
+      "Bash(cp -r frontend-tmp/. frontend/)",
+      "Bash(rm -rf frontend-tmp)",
+      "Bash(npm install *)",
+      "Bash(npx ng *)",
+      "Bash(echo \"started with pid $!\")",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(chromium-cli --help)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx playwright *)",
+      "Bash(mkdir -p C:/Users/neoin/AppData/Local/Temp/claude/d--blockstars-Larawell-project-Fiver-purchase-bill-management-frontend/da20bf03-2835-4512-b4e8-f29eacdbd7a1/scratchpad/pw-check)",
+      "Bash(npm init *)",
+      "Bash(node shot.js)",
+      "Bash(node shot2.js)",
+      "Bash(taskkill //F //IM node.exe //FI \"WINDOWTITLE eq*\")",
+      "PowerShell($conn = Get-NetTCPConnection -LocalPort 4300 -ErrorAction SilentlyContinue; if \\($conn\\) { $procId = $conn[0].OwningProcess; Stop-Process -Id $procId -Force; \"Stopped PID $procId\" } else { \"No process listening on 4300\" })",
+      "PowerShell(Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 4200,4300 } | Select-Object LocalPort, OwningProcess; Get-Process node -ErrorAction SilentlyContinue | Select-Object Id, ProcessName, StartTime)",
+      "PowerShell($conn = Get-NetTCPConnection -LocalPort 4200 -ErrorAction SilentlyContinue; if \\($conn\\) { $procId = $conn[0].OwningProcess; Stop-Process -Id $procId -Force; \"Stopped PID $procId\" } else { \"No process listening on 4200\" })",
+      "Bash(dotnet --version)",
+      "Bash(dotnet build *)",
+      "Bash(command -v sqllocaldb)",
+      "Bash(sqllocaldb info *)",
+      "Bash(dotnet tool *)",
+      "Bash(dotnet ef *)",
+      "Bash(nohup dotnet run --urls \"http://localhost:5205\")",
+      "Bash(echo \"started pid $!\")",
+      "Bash(curl -s http://localhost:5205/swagger/v1/swagger.json -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5205/swagger/v1/swagger.json)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -X POST http://localhost:5205/api/Auth/login -H 'Content-Type: application/json' -d '{\"email\":\"info@enhanzer.com\",\"password\":\"Welcome#3\"}')",
+      "Bash(python3 -m json.tool)"
+    ],
+    "additionalDirectories": [
+      "d:\\blockstars\\Larawell project\\Fiver\\purchase-bill-management\\frontend-tmp\\node_modules"
+    ]
+  }
+}
